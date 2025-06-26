@@ -18,3 +18,16 @@ Firebase (Auth): For anonymous and custom token authentication to manage user se
 How it Works:
 Users provide details about their skin or hair type, specific concerns, and any preferences. The application then leverages the Google Gemini API to generate a comprehensive, multi-faceted personalized plan, including product type suggestions (without specific brands), dietary advice, natural remedies, and general tips. A dedicated section allows for further refinement and troubleshooting of the suggested routines.
 
+<footer style="text-align:center; padding: 20px; font-size: 14px; color: gray;">
+  © 2025 Bhavya Sri · GlowUp.ai – All rights reserved.
+</footer>
+
+---
+
+## 📄 License & Ownership
+
+This project was ideated and created by **Bhavya Sri**, with support from AI tools for implementation.
+
+© 2025 Bhavya Sri. All rights reserved.
+
+
