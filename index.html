@@ -443,7 +443,7 @@
             <!-- Foods to Eat Section (Dynamic for Skin/Hair) -->
             <div id="foodToEatSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
                 <h3 id="foodToEatHeading" class="text-2xl font-bold text-gray-800 mb-4 text-center">
-                    Foods to Eat for Healthy [Skin/Hair]: 🍎🥦🥑
+                    Foods to Eat for Healthy Skin: 🍎🥦🥑
                 </h3>
                 <div id="foodToEatContent" class="bg-indigo-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg">
                     <!-- Food to eat content will be injected here -->
@@ -453,7 +453,7 @@
             <!-- Food to Avoid Section (Dynamic for Skin/Hair) -->
             <div id="foodToAvoidSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
                 <h3 id="foodToAvoidHeading" class="text-2xl font-bold text-gray-800 mb-4 text-center">
-                    Foods to Limit/Avoid for Healthy [Skin/Hair]: 🚫🍔
+                    Foods to Limit/Avoid for Healthy Skin: 🚫🍔
                 </h3>
                 <div id="foodToAvoidContent" class="bg-red-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg">
                     <!-- Food to avoid content will be injected here -->
@@ -547,8 +547,8 @@
         </div>
 
         <!-- Footer with Navigational Links -->
-        <footer class="mt-8 pt-6 border-t border-gray-200 text-center text-sm text-gray-600 space-y-2 md:space-y-0 md:flex md:justify-center md:space-x-6">
-            <!-- All links removed as requested in previous turn -->
+        <footer style="text-align:center; color:gray; padding:20px; font-size:14px;">
+            © 2025 Bhavya Sri Kalapala · GlowUp.ai — All rights reserved. <br>
         </footer>
     </div>
 
@@ -1181,7 +1181,7 @@
 
                     // Update food section headings and display content
                     if (foodsToEatText) {
-                        foodToEatHeading.textContent = `Foods to Eat for Healthy ${selectedServiceType === 'skincare' ? 'Skin' : 'Hair'}: �🥦🥑`;
+                        foodToEatHeading.textContent = `Foods to Eat for Healthy ${selectedServiceType === 'skincare' ? 'Skin' : 'Hair'}: 🍎🥦🥑`;
                         foodToEatContentDiv.innerHTML = formatListItems(foodsToEatText);
                         foodToEatSection.classList.remove('hidden');
                     }
@@ -1406,7 +1406,7 @@
                     'Toner': 'https://placehold.co/100x100/ADD8E6/FFFFFF?text=TONER%0A💧',
                     'Serum': 'https://placehold.co/100x100/F472B6/FFFFFF?text=SERUM%0A✨',
                     'Eye Cream': 'https://placehold.co/100x100/98FF98/FFFFFF?text=EYE+CREAM%0A👁️',
-                    'Moisturizer': 'https://placehold.co/100x100/60A5FA/FFFFFF?text=MOISTURIZER%0A💦',
+                    'Moisturizer': 'https://placehold.co/100x100/60A5FA/FFFFFF?text=MOISTURIZER%0A�',
                     'Sunscreen': 'https://placehold.co/100x100/34D399/FFFFFF?text=SUNSCREEN%0A☀️',
                     'Exfoliant': 'https://placehold.co/100x100/FFD700/FFFFFF?text=EXFOLIANT%0A scrub',
                     'Mask': 'https://placehold.co/100x100/DAA520/FFFFFF?text=MASK%0A🎭',
@@ -1471,15 +1471,3 @@
     </script>
 </body>
 </html>
-
-<footer style="text-align:center; padding: 20px; font-size: 14px; color: gray;">
-  © 2025 Bhavya Sri · GlowUp.ai – All rights reserved.
-</footer>
----
-
-## 📄 License & Ownership
-
-This project was ideated and created by **Bhavya Sri**, with support from AI tools for implementation.
-
-© 2025 Bhavya Sri. All rights reserved.
-
