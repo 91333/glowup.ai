@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ GlowUp.ai ✨</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light gray background */
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Basic transition for page changes */
+        .page-transition {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .page-transition.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Main Container - Wrapper for all pages -->
+    <div class="bg-white rounded-xl shadow-2xl p-6 md:p-8 w-full max-w-4xl border border-gray-200 min-h-[700px] flex flex-col justify-between">
+
+        <!-- Page 1: Welcome/Intro Page -->
+        <div id="introPage" class="page-transition flex flex-col items-center justify-center text-center h-full">
+            <img src="https://placehold.co/150x150/FBCFE8/831843?text=GlowUp.ai" alt="GlowUp.ai Logo" class="w-32 h-32 mb-8 rounded-full shadow-lg border-4 border-pink-200">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">
+                Welcome to GlowUp.ai ✨
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-md">
+                Your AI-powered guide for personalized skin and hair routines, from budget-friendly finds to premium solutions.
+            </p>
+            <div id="quoteDisplay" class="text-xl italic text-gray-700 mb-8 max-w-lg">
+                <!-- Quote will be inserted here by JavaScript -->
+            </div>
+            <button id="startButton"
+                    class="bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-pink-400">
+                Get Started ▶️
+            </button>
+        </div>
+
+        <!-- Page 2: Input Form Page (Dynamic based on service choice) -->
+        <div id="inputPage" class="page-transition hidden">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-6">
+                Tell Us About Your Needs 📝
+            </h2>
+            <p class="text-center text-gray-600 mb-8">
+                Help us understand your skin or hair for the best recommendations.
+            </p>
+
+            <!-- Service Type Selection -->
+            <div class="mb-8 p-4 border border-blue-200 rounded-lg bg-blue-50">
+                <label class="block text-gray-700 text-sm font-semibold mb-3">
+                    What are you looking for today? 🎯
+                </label>
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                    <label class="inline-flex items-center p-2 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer">
+                        <input type="radio" name="serviceType" value="skincare" id="serviceSkincare" checked
+                               class="form-radio h-4 w-4 text-blue-500 focus:ring-blue-300 transition duration-150 ease-in-out">
+                        <span class="ml-2 text-gray-800">Skincare 🧖‍♀️</span>
+                    </label>
+                    <label class="inline-flex items-center p-2 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer">
+                        <input type="radio" name="serviceType" value="haircare" id="serviceHaircare"
+                               class="form-radio h-4 w-4 text-blue-500 focus:ring-blue-300 transition duration-150 ease-in-out">
+                        <span class="ml-2 text-gray-800">Haircare 💇‍♀️</span>
+                    </label>
+                    <!-- Removed "Both Skincare & Haircare" option -->
+                </div>
+            </div>
+
+            <!-- SKINCURE SECTION -->
+            <div id="skinSection" class="p-4 border border-pink-200 rounded-lg bg-pink-50 mb-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Skincare Details 💖</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Skin Type -->
+                    <div>
+                        <label for="skinType" class="block text-gray-700 text-sm font-semibold mb-2">
+                            Your Skin Type: 🧖‍♀️
+                        </label>
+                        <select id="skinType"
+                                class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition duration-200 ease-in-out bg-gray-50 text-gray-800">
+                            <option value="" disabled selected>Select your skin type</option>
+                            <option value="Normal">Normal</option>
+                            <option value="Oily">Oily</option>
+                            <option value="Dry">Dry</option>
+                            <option value="Combination">Combination</option>
+                            <option value="Sensitive">Sensitive</option>
+                            <option value="Acne-Prone">Acne-Prone</option>
+                            <option value="Mature">Mature</option>
+                        </select>
+                    </div>
+
+                    <!-- Skin Concerns -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">
+                            Your Main Skin Concerns (select all that apply): 🎯
+                        </label>
+                        <div class="grid grid-cols-2 gap-2 text-sm text-gray-800">
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Acne/Breakouts"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Acne/Breakouts 🌋</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Blackheads/Whiteheads"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Blackheads/Whiteheads ⚫⚪</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Enlarged Pores"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Enlarged Pores 🕳️</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Excess Oil/Shine"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Excess Oil/Shine 💧</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Anti-aging/Fine Lines/Wrinkles"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Fine Lines/Wrinkles 🕰️</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Loss of Firmness/Elasticity"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Loss of Firmness 📉</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Dryness/Dehydration"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Dryness/Dehydration 🏜️</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Flakiness/Rough Patches"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Flakiness/Rough Patches 🧤</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Redness/Rosacea"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Redness/Rosacea 🔴</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Sensitivity/Irritation"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Sensitivity/Irritation 😫</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Hyperpigmentation/Dark Spots/Sun Spots"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Dark Spots/Sun Spots 🩹</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Melasma"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Melasma 🗺️</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Post-Inflammatory Hyperpigmentation (PIH)"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">PIH (Dark Marks) 💜</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Dullness/Lack of Radiance"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Dullness/Radiance 💡</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Uneven Skin Tone"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Uneven Skin Tone 🎨</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Uneven Texture"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Uneven Texture ✨</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Dark Circles/Puffiness Under Eyes"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Dark Circles/Puffiness 🐼</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Sun Damage"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Sun Damage ☀️</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Eczema/Dermatitis"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Eczema/Dermatitis 🩹</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Psoriasis"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Psoriasis 🔴</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Keratosis Pilaris"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Keratosis Pilaris 🐔</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Clogged Pores"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Clogged Pores 🧱</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Visible Capillaries/Spider Veins"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Visible Capillaries 🕸️</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-pink-50 transition-colors cursor-pointer">
+                                <input type="checkbox" name="skinConcerns" value="Loss of Volume/Sagging Skin"
+                                       class="form-checkbox h-4 w-4 text-pink-500 rounded focus:ring-pink-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Loss of Volume 🎈</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Face Scan Input -->
+                <div class="mb-4 p-4 border border-pink-200 rounded-lg bg-pink-50">
+                    <label for="faceImageUpload" class="block text-gray-700 text-sm font-semibold mb-2">
+                        Upload a picture of your face (optional, for better AI analysis): 📸
+                    </label>
+                    <input type="file" id="faceImageUpload" accept="image/*" class="block w-full text-sm text-gray-700
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-full file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-pink-100 file:text-pink-700
+                        hover:file:bg-pink-200 transition-colors cursor-pointer">
+                    <p class="text-xs text-gray-500 mt-2">
+                        (Your image is sent to an AI for analysis and not stored. Please use a clear, well-lit photo for best results.)
+                    </p>
+                    <div id="imagePreviewContainer" class="mt-4 hidden text-center">
+                        <p class="text-sm text-gray-600 mb-2">Image Preview:</p>
+                        <img id="imagePreview" class="max-w-xs max-h-48 mx-auto rounded-lg shadow-md border border-gray-200" src="#" alt="Image Preview">
+                    </div>
+                </div>
+            </div> <!-- End Skin Section -->
+
+            <!-- HAIRCARE SECTION -->
+            <div id="hairSection" class="p-4 border border-teal-200 rounded-lg bg-teal-50 mb-8 hidden">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Haircare Details 💇‍♀️</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Hair Type -->
+                    <div>
+                        <label for="hairType" class="block text-gray-700 text-sm font-semibold mb-2">
+                            Your Hair Type: 💈
+                        </label>
+                        <select id="hairType"
+                                class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-300 focus:border-transparent transition duration-200 ease-in-out bg-gray-50 text-gray-800">
+                            <option value="" disabled selected>Select your hair type</option>
+                            <option value="Straight">Straight</option>
+                            <option value="Wavy">Wavy</option>
+                            <option value="Curly">Curly</option>
+                            <option value="Coily">Coily</option>
+                            <option value="Fine">Fine</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Thick">Thick</option>
+                        </select>
+                    </div>
+
+                    <!-- Hair Concerns -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">
+                            Your Main Hair Concerns (select all that apply): 💇‍♀️
+                        </label>
+                        <div class="grid grid-cols-2 gap-2 text-sm text-gray-800">
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Dandruff"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Dandruff ❄️</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Dry Scalp"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Dry Scalp 🏜️</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Oily Scalp/Greasy Hair"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Oily Scalp/Greasy Hair 💧</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Hair Loss/Thinning"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Hair Loss/Thinning 📉</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Frizz"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Frizz 🦁</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Split Ends"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Split Ends ✂️</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Damaged Hair/Breakage"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Damaged Hair/Breakage 💔</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Dullness/Lack of Shine"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Dullness/Lack of Shine 🌟</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Slow Growth"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Slow Growth 🐢</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Thinning Hair"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Thinning Hair 🤏</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Color-Treated Hair"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Color-Treated Hair 🌈</span>
+                            </label>
+                            <label class="inline-flex items-center p-2 rounded-lg hover:bg-teal-100 transition-colors cursor-pointer">
+                                <input type="checkbox" name="hairConcerns" value="Itchy Scalp"
+                                       class="form-checkbox h-4 w-4 text-teal-500 rounded focus:ring-teal-300 transition duration-150 ease-in-out">
+                                <span class="ml-2">Itchy Scalp 😬</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End Hair Section -->
+
+            <!-- Common Preferences (applies to both/either) -->
+            <div class="mb-8">
+                <label for="preferences" class="block text-gray-700 text-sm font-semibold mb-2">
+                    Any specific preferences or general concerns? 💬
+                    <span class="text-gray-500 text-xs">(e.g., "vegan products", "fragrance-free", "morning and night routine", "heat styling habits")</span>
+                </label>
+                <textarea id="preferences" rows="3"
+                          class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition duration-200 ease-in-out bg-gray-50 text-gray-800"
+                          placeholder="e.g., 'I prefer cruelty-free products' or 'I use heat styling frequently.'"></textarea>
+            </div>
+
+            <!-- Get Recommendations Button -->
+            <div class="text-center">
+                <button id="getRecommendationsBtn"
+                        class="bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-pink-400">
+                    Get My Personalized Plan ✨
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 3: Recommendations Display Area -->
+        <div id="recommendationsPage" class="page-transition hidden">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
+                Your Personalized Routine: ✨
+            </h2>
+            <div id="loadingIndicator" class="mt-8 text-center text-pink-600 font-semibold text-lg hidden">
+                <div class="animate-spin inline-block w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full mr-2"></div>
+                Thinking... Please wait for your personalized recommendations! 🧠
+            </div>
+
+            <!-- Analysis & Routine Sections will be shown dynamically -->
+
+            <!-- Skin Analysis & Potential Causes Section -->
+            <div id="skinAnalysisSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    Your Skin Analysis & Potential Causes: 🔍
+                </h3>
+                <div id="analysisContent" class="bg-purple-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg">
+                    <!-- Analysis content will be injected here -->
+                </div>
+            </div>
+
+            <!-- Skincare Routine Section -->
+            <div id="skincareRoutineSection" class="mt-8 hidden">
+                 <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    Your Skincare Routine: 🧴
+                </h3>
+                <div id="skincareRecommendationsOutputContent" class="bg-pink-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg overflow-y-auto max-h-[400px]">
+                    <!-- Skincare Recommendations will be injected here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Hair Analysis & Potential Causes Section -->
+            <div id="hairAnalysisSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    Your Hair Analysis & Potential Causes: 🔬
+                </h3>
+                <div id="hairAnalysisContent" class="bg-yellow-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg">
+                    <!-- Hair analysis content will be injected here -->
+                </div>
+            </div>
+
+            <!-- Haircare Routine Section -->
+            <div id="haircareRoutineSection" class="mt-8 hidden">
+                 <h3 class="2xl font-bold text-gray-800 mb-4 text-center">
+                    Your Haircare Routine: 💇‍♀️
+                </h3>
+                <div id="haircareRecommendationsOutputContent" class="bg-teal-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg overflow-y-auto max-h-[400px]">
+                    <!-- Haircare Recommendations will be injected here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- NEW: Highly Recommended Product Types/Ingredients Section -->
+            <div id="highlyRecommendedProductsSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    Highly Recommended Product Types & Key Ingredients: ⭐
+                </h3>
+                <div id="highlyRecommendedProductsContent" class="bg-blue-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg">
+                    <!-- Recommended product types/ingredients will be injected here -->
+                </div>
+            </div>
+
+            <!-- Foods to Eat Section (Dynamic for Skin/Hair) -->
+            <div id="foodToEatSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
+                <h3 id="foodToEatHeading" class="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    Foods to Eat for Healthy [Skin/Hair]: 🍎🥦🥑
+                </h3>
+                <div id="foodToEatContent" class="bg-indigo-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg">
+                    <!-- Food to eat content will be injected here -->
+                </div>
+            </div>
+
+            <!-- Food to Avoid Section (Dynamic for Skin/Hair) -->
+            <div id="foodToAvoidSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
+                <h3 id="foodToAvoidHeading" class="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    Foods to Limit/Avoid for Healthy [Skin/Hair]: 🚫🍔
+                </h3>
+                <div id="foodToAvoidContent" class="bg-red-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg">
+                    <!-- Food to avoid content will be injected here -->
+                </div>
+            </div>
+
+            <!-- General Diet Recommendations Section (NEW) -->
+            <div id="generalDietSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    General Diet Recommendations: 🥗💧
+                </h3>
+                <div id="generalDietContent" class="bg-orange-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg">
+                    <!-- General diet content will be injected here -->
+                </div>
+            </div>
+
+            <!-- Natural Remedies & DIY Solutions Section -->
+            <div id="naturalRemediesSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    Natural Remedies & DIY Solutions: 🌿🍯
+                </h3>
+                <div id="naturalRemediesContent" class="bg-green-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg">
+                    <!-- Natural remedies content will be injected here -->
+                </div>
+            </div>
+            
+            <!-- General Skincare/Haircare Tips Section -->
+            <div id="generalTipsSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    General Tips for You: 💡
+                </h3>
+                <div id="tipsContent" class="bg-blue-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg">
+                    <!-- Tips will be injected here -->
+                </div>
+            </div>
+
+            <!-- NEW: Important Cautions & Considerations Section -->
+            <div id="cautionsSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    Important Cautions & Considerations: ⚠️
+                </h3>
+                <div id="cautionsContent" class="bg-yellow-50 bg-opacity-50 p-6 rounded-lg shadow-inner text-gray-700 leading-relaxed text-base md:text-lg">
+                    <!-- Cautions content will be injected here -->
+                </div>
+            </div>
+
+            <!-- NEW: Routine Refinement/Troubleshooting Section -->
+            <div id="troubleshootSection" class="mt-8 pt-8 border-t border-gray-200 hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    Refine Your Routine or Troubleshoot: ✨🤔
+                </h3>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-inner">
+                    <label for="troubleshootInput" class="block text-gray-700 text-sm font-semibold mb-2">
+                        Describe your issue or question about the recommended routine:
+                    </label>
+                    <textarea id="troubleshootInput" rows="3"
+                              class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent transition duration-200 ease-in-out bg-white text-gray-800 mb-4"
+                              placeholder="e.g., 'My skin still feels a bit oily after using the suggested cleanser' or 'How can I prevent my hair from getting greasy so quickly?'"></textarea>
+                    
+                    <div class="text-center">
+                        <button id="submitTroubleshootBtn"
+                                class="bg-purple-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-purple-400">
+                            Get Refined Advice 💡
+                        </button>
+                    </div>
+
+                    <div id="troubleshootLoadingIndicator" class="mt-4 text-center text-purple-600 font-semibold text-sm hidden">
+                        <div class="animate-spin inline-block w-6 h-6 border-3 border-purple-500 border-t-transparent rounded-full mr-2"></div>
+                        Thinking...
+                    </div>
+                    
+                    <div id="troubleshootOutput" class="mt-6 p-4 bg-purple-50 rounded-lg text-gray-700 leading-relaxed text-base border border-purple-200 hidden">
+                        <!-- Troubleshooting advice will be injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center text-sm text-gray-500 mt-4">
+                *These recommendations are generated by AI and should not replace professional dermatological or trichological advice. 👩‍⚕️
+            </p>
+            <div class="text-center mt-6">
+                <button id="backToInputBtn"
+                        class="bg-gray-300 text-gray-700 font-semibold py-2 px-6 rounded-full hover:bg-gray-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                    Back to Inputs ↩️
+                </button>
+            </div>
+            <!-- Display User ID -->
+            <p id="userIdDisplay" class="text-center text-xs text-gray-400 mt-4 hidden">
+                User ID: <span id="currentUserId"></span>
+            </p>
+        </div>
+
+        <!-- Footer with Navigational Links -->
+        <footer class="mt-8 pt-6 border-t border-gray-200 text-center text-sm text-gray-600 space-y-2 md:space-y-0 md:flex md:justify-center md:space-x-6">
+            <!-- All links removed as requested in previous turn -->
+        </footer>
+    </div>
+
+    <!-- Custom Modal for Messages (remains the same) -->
+    <div id="customModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-white rounded-lg p-6 shadow-xl max-w-sm w-full transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
+            <h3 id="modalTitle" class="text-xl font-bold text-gray-800 mb-4"></h3>
+            <p id="modalMessage" class="text-gray-700 mb-6"></p>
+            <div class="text-right">
+                <button id="closeModalBtn"
+                        class="bg-pink-500 text-white font-semibold py-2 px-6 rounded-full hover:bg-pink-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-pink-300">
+                    OK 👍
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import Firebase modules - NOTE: Firestore related imports are now removed as feedback is removed
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        // import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"; // Removed
+
+        // Global variables for Firebase configuration, provided by the Canvas environment.
+        // If running outside Canvas, these will be undefined, and default values will be used.
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null; 
+
+        // Firebase App and Services
+        let app;
+        // let db; // Removed
+        let auth;
+        let userId = null; // Will store the authenticated user's ID
+
+        // Get references to DOM elements for pages
+        const introPage = document.getElementById('introPage');
+        const inputPage = document.getElementById('inputPage');
+        const recommendationsPage = document.getElementById('recommendationsPage');
+
+        // Page navigation buttons
+        const startButton = document.getElementById('startButton');
+        const backToInputBtn = document.getElementById('backToInputBtn');
+
+        // Service type selection elements
+        const serviceTypeRadios = document.querySelectorAll('input[name="serviceType"]');
+        const skinSection = document.getElementById('skinSection');
+        const hairSection = document.getElementById('hairSection');
+
+        // Input form elements (Skin)
+        const getRecommendationsBtn = document.getElementById('getRecommendationsBtn');
+        const skinTypeSelect = document.getElementById('skinType');
+        const skinConcernsCheckboxes = document.querySelectorAll('input[name="skinConcerns"]');
+        const faceImageUpload = document.getElementById('faceImageUpload');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const imagePreview = document.getElementById('imagePreview');
+
+        // Input form elements (Hair)
+        const hairTypeSelect = document.getElementById('hairType');
+        const hairConcernsCheckboxes = document.querySelectorAll('input[name="hairConcerns"]');
+
+        // Common preferences
+        const preferencesTextarea = document.getElementById('preferences');
+
+        // Output and loading elements
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+        // Skin Output Sections
+        const skinAnalysisSection = document.getElementById('skinAnalysisSection');
+        const analysisContentDiv = document.getElementById('analysisContent');
+        const skincareRoutineSection = document.getElementById('skincareRoutineSection');
+        const skincareRecommendationsOutputContentDiv = document.getElementById('skincareRecommendationsOutputContent');
+
+        // Hair Output Sections
+        const hairAnalysisSection = document.getElementById('hairAnalysisSection');
+        const haircareRoutineSection = document.getElementById('haircareRoutineSection');
+        const hairAnalysisContentDiv = document.getElementById('hairAnalysisContent');
+        const haircareRecommendationsOutputContentDiv = document.getElementById('haircareRecommendationsOutputContent');
+
+        // New/Updated Common Output Sections
+        const highlyRecommendedProductsSection = document.getElementById('highlyRecommendedProductsSection');
+        const highlyRecommendedProductsContent = document.getElementById('highlyRecommendedProductsContent');
+        const foodToEatSection = document.getElementById('foodToEatSection'); 
+        const foodToEatHeading = document.getElementById('foodToEatHeading');
+        const foodToEatContentDiv = document.getElementById('foodToEatContent'); 
+        const foodToAvoidSection = document.getElementById('foodToAvoidSection');
+        const foodToAvoidHeading = document.getElementById('foodToAvoidHeading');
+        const foodToAvoidContentDiv = document.getElementById('foodToAvoidContent');
+        const generalDietSection = document.getElementById('generalDietSection'); 
+        const generalDietContentDiv = document.getElementById('generalDietContent'); 
+        const naturalRemediesSection = document.getElementById('naturalRemediesSection');
+        const naturalRemediesContentDiv = document.getElementById('naturalRemediesContent');
+        const generalTipsSection = document.getElementById('generalTipsSection');
+        const tipsContentDiv = document.getElementById('tipsContent');
+        const cautionsSection = document.getElementById('cautionsSection');
+        const cautionsContent = document.getElementById('cautionsContent');
+
+        // Troubleshooting/Refinement Elements
+        const troubleshootSection = document.getElementById('troubleshootSection');
+        const troubleshootInput = document.getElementById('troubleshootInput');
+        const submitTroubleshootBtn = document.getElementById('submitTroubleshootBtn');
+        const troubleshootLoadingIndicator = document.getElementById('troubleshootLoadingIndicator');
+        const troubleshootOutputDiv = document.getElementById('troubleshootOutput');
+
+        // Feedback Elements - Removed references
+        // const feedbackSection = document.getElementById('feedbackSection'); // Removed
+        // const feedbackInput = document.getElementById('feedbackInput'); // Removed
+        // const feedbackMessage = document.getElementById('feedbackMessage'); // Removed
+        const userIdDisplay = document.getElementById('userIdDisplay');
+        const currentUserIdSpan = document.getElementById('currentUserId');
+
+        // Quote display
+        const quoteDisplay = document.getElementById('quoteDisplay');
+        const beautyQuotes = [
+            { quote: "The most beautiful thing you can wear is confidence.", author: "Blake Lively" },
+            { quote: "Beauty is power; a smile is its sword.", author: "John Ray" },
+            { quote: "Imperfection is beauty, madness is genius and it's better to be absolutely ridiculous than absolutely boring.", author: "Marilyn Monroe" },
+            { quote: "Beauty begins the moment you decide to be yourself.", author: "Coco Chanel" },
+            { quote: "A healthy outside starts from the inside.", author: "Robert Urich" },
+            { quote: "The best pigment ever is the blush of embarrassment.", author: "Diogenes" },
+            { quote: "For beautiful eyes, look for the good in others; for beautiful lips, speak only words of kindness; and for poise, walk with the knowledge that you are never alone.", author: "Audrey Hepburn" },
+            { quote: "Elegance is the only beauty that never fades.", author: "Audrey Hepburn" },
+            { quote: "Beauty is not in the face; beauty is a light in the heart.", author: "Kahlil Gibran" },
+            { quote: "The soul that sees beauty may sometimes walk alone.", author: "Johann Wolfgang von Goethe" }
+        ];
+
+
+        // Modal elements
+        const customModal = document.getElementById('customModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        let currentPage = introPage; // Keep track of the current active page
+        let base64Image = null; // Store base64 image data
+        let selectedServiceType = 'skincare'; // Default service type
+
+        // Global variables to store raw routine texts for refinement
+        let currentSkincareRoutineRaw = '';
+        let currentHaircareRoutineRaw = '';
+
+        // Global variables to store user's initial inputs for refinement context
+        let currentUserSkinType = '';
+        let currentUserSkinConcerns = [];
+        let currentUserHairType = '';
+        let currentUserHairConcerns = [];
+        let currentUserPreferences = '';
+
+        /**
+         * Initializes Firebase if firebaseConfig is available.
+         * Sets up authentication. Firestore is no longer used for feedback.
+         */
+        async function initializeFirebase() {
+            if (firebaseConfig) {
+                try {
+                    app = initializeApp(firebaseConfig);
+                    // db = getFirestore(app); // Removed
+                    auth = getAuth(app);
+
+                    // Sign in anonymously or with custom token
+                    if (initialAuthToken) {
+                        await signInWithCustomToken(auth, initialAuthToken);
+                        console.log("Signed in with custom token.");
+                    } else {
+                        await signInAnonymously(auth);
+                        console.log("Signed in anonymously.");
+                        }
+
+                    // Listen for auth state changes and update userId
+                    onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            userId = user.uid;
+                            currentUserIdSpan.textContent = userId;
+                            userIdDisplay.classList.remove('hidden');
+                            console.log("User authenticated:", userId);
+                        } else {
+                            userId = null;
+                            currentUserIdSpan.textContent = '';
+                            userIdDisplay.classList.add('hidden');
+                            console.log("User logged out or not authenticated.");
+                        }
+                    });
+
+                } catch (error) {
+                    console.error("Error initializing Firebase or authenticating:", error);
+                    showModal('Firebase Error', `Could not connect to authentication services: ${error.message}`);
+                }
+            } else {
+                console.warn("Firebase config not found. User ID display might not be available.");
+                // Removed specific warning about backend features, as feedback saving is now removed.
+            }
+        }
+
+
+        /**
+         * Smoothly transitions between pages.
+         * @param {HTMLElement} newPage - The new page element to display.
+         */
+        function showPage(newPage) {
+            if (currentPage) {
+                currentPage.classList.remove('active');
+                currentPage.classList.add('opacity-0', 'scale-95'); // Animate out
+                setTimeout(() => {
+                    currentPage.classList.add('hidden');
+                    currentPage = newPage;
+                    currentPage.classList.remove('hidden');
+                    setTimeout(() => {
+                        currentPage.classList.add('active'); // Animate in
+                        currentPage.classList.remove('opacity-0', 'scale-95');
+                    }, 50); // Small delay for animation synchronization
+                }, 300); // Wait for transition out
+            } else {
+                currentPage = newPage;
+                currentPage.classList.remove('hidden');
+                setTimeout(() => {
+                    currentPage.classList.add('active');
+                }, 50);
+            }
+        }
+
+        /**
+         * Displays a custom modal message to the user.
+         * @param {string} title - The title of the modal.
+         * @param {string} message - The message content of the modal.
+         */
+        function showModal(title, message) {
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            customModal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('opacity-0', 'scale-95');
+                modalContent.classList.add('opacity-100', 'scale-100');
+            }, 50);
+        }
+
+        /**
+         * Hides the custom modal.
+         */
+        function hideModal() {
+            modalContent.classList.remove('opacity-100', 'scale-100');
+            modalContent.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                customModal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Event Listeners for Navigation
+        startButton.addEventListener('click', () => showPage(inputPage));
+        backToInputBtn.addEventListener('click', () => {
+            showPage(inputPage);
+            // Optionally clear troubleshoot section when going back to input
+            troubleshootSection.classList.add('hidden');
+            troubleshootInput.value = '';
+            troubleshootOutputDiv.innerHTML = '';
+            troubleshootOutputDiv.classList.add('hidden');
+            // feedbackSection.classList.add('hidden'); // Removed
+            // feedbackInput.value = ''; // Removed
+            // feedbackMessage.classList.add('hidden'); // Removed
+        });
+        closeModalBtn.addEventListener('click', hideModal);
+
+        // Handle service type selection to show/hide sections
+        serviceTypeRadios.forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                selectedServiceType = event.target.value;
+                updateInputVisibility();
+            });
+        });
+
+        /**
+         * Updates the visibility of skin and hair input sections based on selectedServiceType.
+         */
+        function updateInputVisibility() {
+            skinSection.classList.add('hidden');
+            hairSection.classList.add('hidden');
+
+            if (selectedServiceType === 'skincare') { // Only show skin section if 'skincare' selected
+                skinSection.classList.remove('hidden');
+            } else if (selectedServiceType === 'haircare') { // Only show hair section if 'haircare' selected
+                hairSection.classList.remove('hidden');
+            }
+            // Reset image upload only if skin section is going to be hidden or changed
+            if (selectedServiceType === 'haircare' && faceImageUpload.value) { 
+                faceImageUpload.value = '';
+                imagePreviewContainer.classList.add('hidden');
+                base64Image = null;
+            }
+        }
+
+        // Handle image upload and preview
+        faceImageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                // Check if the file type is an image
+                if (!file.type.startsWith('image/')) {
+                    showModal('Invalid File Type', 'Please upload an image file (e.g., JPEG, PNG).');
+                    faceImageUpload.value = ''; // Clear the input
+                    imagePreviewContainer.classList.add('hidden');
+                    base64Image = null;
+                    return;
+                }
+                if (file.size > 2 * 1024 * 1024) { // Limit to 2MB
+                    showModal('File Too Large', 'Please upload an image smaller than 2MB.');
+                    faceImageUpload.value = ''; // Clear the input
+                    base64Image = null;
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    base64Image = e.target.result.split(',')[1]; // Get base64 string
+                    imagePreview.src = e.target.result;
+                    imagePreviewContainer.classList.remove('hidden');
+                };
+                reader.onerror = (e) => {
+                    console.error("FileReader error:", e);
+                    showModal('Image Error', 'Could not read the image file.');
+                    imagePreviewContainer.classList.add('hidden');
+                    base64Image = null;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreviewContainer.classList.add('hidden');
+                base64Image = null;
+            }
+        });
+
+        // Main Recommendations Button Logic
+        getRecommendationsBtn.addEventListener('click', async () => {
+            let promptText = '';
+            let chatParts = [];
+            
+            // Store current user inputs for later refinement
+            currentUserSkinType = skinTypeSelect.value;
+            currentUserSkinConcerns = Array.from(skinConcernsCheckboxes).filter(checkbox => checkbox.checked).map(c => c.value);
+            currentUserHairType = hairTypeSelect.value;
+            currentUserHairConcerns = Array.from(hairConcernsCheckboxes).filter(checkbox => checkbox.checked).map(c => c.value);
+            currentUserPreferences = preferencesTextarea.value.trim();
+
+
+            // IMPORTANT: PASTE YOUR COPIED API KEY HERE!
+            // Example: const apiKey = "AIzaSyC..."; // Replace this with your actual key
+            const apiKey = "AIzaSyDRm0X-rHKtqUUnUj0T-pwOT9GgrXXGGLc"; 
+
+
+            let apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`;
+            // Only append the API key if it's provided and not the default placeholder
+            if (apiKey && apiKey !== "YOUR_PASTED_API_KEY_HERE") {
+                apiUrl += `?key=${apiKey}`;
+            } else if (!apiKey || apiKey === "YOUR_PASTED_API_KEY_HERE") {
+                // If the key is still the placeholder, show an error and stop.
+                showModal('API Key Missing', 'Please paste your actual Gemini API key into the JavaScript code. See comments in the script for instructions.');
+                loadingIndicator.classList.add('hidden');
+                return; // Stop execution
+            }
+
+
+            // --- Input Validation based on selectedServiceType ---
+            let isValid = true;
+            if (selectedServiceType === 'skincare') {
+                if (!currentUserSkinType) {
+                    showModal('Input Required', 'Please select your skin type. 🧖‍♀️');
+                    isValid = false;
+                }
+                if (currentUserSkinConcerns.length === 0) {
+                    showModal('Input Required', 'Please select at least one skin concern. 🎯');
+                    isValid = false;
+                }
+            } else if (selectedServiceType === 'haircare') {
+                if (!currentUserHairType) {
+                    showModal('Input Required', 'Please select your hair type. 💈');
+                    isValid = false;
+                }
+                if (currentUserHairConcerns.length === 0) {
+                    showModal('Input Required', 'Please select at least one hair concern. 💇‍♀️');
+                    isValid = false;
+                }
+            }
+
+            if (!isValid) return; // Stop if validation fails
+
+            // Show loading indicator on the recommendations page
+            showPage(recommendationsPage);
+            loadingIndicator.classList.remove('hidden');
+            // Clear previous content and hide sections
+            skinAnalysisSection.classList.add('hidden');
+            analysisContentDiv.innerHTML = '';
+            skincareRoutineSection.classList.add('hidden');
+            skincareRecommendationsOutputContentDiv.innerHTML = '';
+            hairAnalysisSection.classList.add('hidden');
+            hairAnalysisContentDiv.innerHTML = '';
+            haircareRoutineSection.classList.add('hidden');
+            haircareRecommendationsOutputContentDiv.innerHTML = '';
+            highlyRecommendedProductsSection.classList.add('hidden'); // NEW
+            highlyRecommendedProductsContent.innerHTML = ''; // NEW
+            foodToEatSection.classList.add('hidden'); 
+            foodToEatContentDiv.innerHTML = ''; 
+            foodToAvoidSection.classList.add('hidden');
+            foodToAvoidContentDiv.innerHTML = '';
+            generalDietSection.classList.add('hidden'); 
+            generalDietContentDiv.innerHTML = ''; 
+            naturalRemediesSection.classList.add('hidden');
+            naturalRemediesContentDiv.innerHTML = '';
+            generalTipsSection.classList.add('hidden');
+            tipsContentDiv.innerHTML = '';
+            cautionsSection.classList.add('hidden'); // NEW
+            cautionsContent.innerHTML = ''; // NEW
+            troubleshootSection.classList.add('hidden'); // Hide troubleshoot section on new main request
+            troubleshootInput.value = '';
+            troubleshootOutputDiv.innerHTML = '';
+            troubleshootOutputDiv.classList.add('hidden');
+            // feedbackSection.classList.add('hidden'); // Removed
+            // feedbackInput.value = ''; // Removed
+            // feedbackMessage.classList.add('hidden'); // Removed
+
+
+            // --- Construct Prompt Based on Service Type ---
+            promptText = `As a professional ${selectedServiceType === 'skincare' ? 'skincare' : 'haircare'} expert, generate comprehensive, personalized recommendations.`;
+
+            // Add inputs dynamically
+            if (selectedServiceType === 'skincare') {
+                promptText += `
+                ---USER INPUT SKINCARE---
+                Skin Type: ${currentUserSkinType}
+                Main Skin Concerns: ${currentUserSkinConcerns.join(', ')}
+                `;
+                if (base64Image) {
+                    chatParts.push({
+                        inlineData: {
+                            mimeType: "image/png",
+                            data: base64Image
+                        }
+                    });
+                    promptText += `Image provided for skin analysis. Analyze visible aspects (texture, pores, redness, brightness, blemishes, overall health indicators) but do not diagnose medical conditions.\n`;
+                } else {
+                    promptText += `No skin image provided. Rely on self-reported skin data.\n`;
+                }
+            } else if (selectedServiceType === 'haircare') {
+                promptText += `
+                ---USER INPUT HAIRCARE---
+                Hair Type: ${currentUserHairType}
+                Main Hair Concerns: ${currentUserHairConcerns.join(', ')}
+                `;
+            }
+
+            if (currentUserPreferences) {
+                promptText += `
+                ---USER INPUT PREFERENCES---
+                General Preferences/Specific needs: ${currentUserPreferences}
+                `;
+            }
+
+            // Define the expected output structure clearly
+            promptText += `
+
+            **Please provide your response structured into the following distinct sections, each precisely separated by '---SECTION START---' and '---SECTION END---' markers.
+            Include only the routine sections relevant to the user's request (Skincare or Haircare). Always include "Highly Recommended Product Types & Key Ingredients", "Foods to Eat", "Foods to Limit/Avoid", "General Diet Recommendations", "Natural Remedies & DIY Solutions", "General Tips", and "Important Cautions & Considerations".**
+
+            ---SECTION START---
+            **${selectedServiceType === 'skincare' ? 'Your Skin Analysis & Potential Causes:' : 'Your Hair Analysis & Potential Causes:'}**
+            [Provide a concise analysis (2-4 paragraphs) based on the provided inputs. For skin, integrate image observations if available. Format as paragraphs.]
+            ---SECTION END---
+
+            ${selectedServiceType === 'skincare' ? `
+            ---SECTION START---
+            **Your Personalized Skincare Routine:**
+            1.  **Cleanser**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            2.  **Toner**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            3.  **Serum**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            4.  **Eye Cream**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            5.  **Moisturizer**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            6.  **Sunscreen**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            7.  **Exfoliant (1-2x weekly)**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            8.  **Mask (1-2x weekly)**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            9.  **Spot Treatment (as needed)**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            ---SECTION END---
+            ` : ''}
+
+            ${selectedServiceType === 'haircare' ? `
+            ---SECTION START---
+            **Your Personalized Haircare Routine:**
+            1.  **Shampoo**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            2.  **Conditioner**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            3.  **Leave-in Treatment/Serum**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            4.  **Hair Mask (1-2x weekly)**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            5.  **Scalp Treatment (as needed)**: Suggest one costly/premium and one budget-friendly option based on ingredient profiles and characteristics, without naming specific brands.
+            ---SECTION END---
+            ` : ''}
+
+            ---SECTION START---
+            **Highly Recommended Product Types & Key Ingredients:** ⭐
+            [Provide a bulleted list of 3-5 specific product *types* or *key ingredients* (e.g., "Ceramide-rich moisturizers", "Niacinamide serums", "Sulfur-based spot treatments", "Bond-repairing hair treatments") that are known for excellent results and positive user feedback for the user's specific skin/hair concerns. Do NOT list specific brand names or URLs. Explain briefly why each is effective.]
+            ---SECTION END---
+
+            ---SECTION START---
+            **Foods to Eat for Healthy ${selectedServiceType === 'skincare' ? 'Skin' : 'Hair'}:** 🍎🥦🥑
+            [Provide a bulleted list of 5-7 specific food items or food groups and a brief, one-sentence explanation for why each is beneficial for ${selectedServiceType === 'skincare' ? 'skin' : 'hair'} health.]
+            ---SECTION END---
+
+            ---SECTION START---
+            **Foods to Limit/Avoid for Healthy ${selectedServiceType === 'skincare' ? 'Skin' : 'Hair'}:** 🚫🍔
+            [Provide a bulleted list of 3-5 specific food items or food groups and a brief, one-sentence explanation for why each might negatively impact ${selectedServiceType === 'skincare' ? 'skin' : 'hair'} health.]
+            ---SECTION END---
+
+            ---SECTION START---
+            **General Diet Recommendations for Skin and Hair Health:** 🥗💧
+            [Provide 2-3 concise, actionable general dietary guidelines, e.g., "Stay hydrated by drinking plenty of water daily.", "Focus on whole, unprocessed foods." Format as paragraphs.]
+            ---SECTION END---
+
+            ---SECTION START---
+            **Natural Remedies & DIY Solutions:** 🌿🍯
+            [Provide 3-5 practical and safe homemade/natural remedies for common skin/hair concerns, relevant to their profile if possible. Clearly label if for skin or hair. Example: 'Aloe Vera (skin): Soothes irritation. / Apple cider vinegar rinse (hair): Balances scalp pH.' Format as bulleted list.]
+            ---SECTION END---
+
+            ---SECTION START---
+            **General Tips:** 💡
+            [Provide 3-5 concise, actionable general tips for skin and/or hair health, relevant to their overall profile or common health. Example: 'Always cleanse your skin thoroughly every evening. / Avoid harsh heat styling on hair.' Format as bulleted list.]
+            ---SECTION END---
+
+            ---SECTION START---
+            **Important Cautions & Considerations:** ⚠️
+            [Provide 3-5 important cautions or considerations relevant to general skin/hair health or the suggested routines (e.g., "Patch test new products", "Be patient with results", "Consult a professional for persistent issues"). Format as bulleted list.]
+            ---SECTION END---
+            `;
+
+            chatParts.unshift({ text: promptText }); // Add the text prompt to the beginning
+
+            const payload = { contents: [{ role: "user", parts: chatParts }] };
+            // The apiUrl is now determined conditionally based on whether apiKey is empty or not.
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`API error: ${response.status} ${response.statusText} - ${errorData.error.message || 'Unknown error'}`);
+                }
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const fullText = result.candidates[0].content.parts[0].text;
+                    
+                    // Store the raw routine texts for the troubleshoot feature
+                    // These are the raw string contents of the routine sections before HTML formatting
+                    currentSkincareRoutineRaw = fullText.includes('**Your Personalized Skincare Routine:**') ? 
+                                                fullText.split('**Your Personalized Skincare Routine:**')[1].split('---SECTION END---')[0].trim() : '';
+                    currentHaircareRoutineRaw = fullText.includes('**Your Personalized Haircare Routine:**') ?
+                                                fullText.split('**Your Personalized Haircare Routine:**')[1].split('---SECTION END---')[0].trim() : '';
+
+
+                    // Split the response into sections based on the markers
+                    const sections = fullText.split('---SECTION START---');
+                    let analysisText = '';
+                    let skincareRoutineText = '';
+                    let haircareRoutineText = '';
+                    let highlyRecommendedProductsText = ''; // NEW
+                    let foodsToEatText = ''; 
+                    let foodsToAvoidText = '';
+                    let generalDietText = ''; 
+                    let naturalRemediesText = '';
+                    let generalTipsText = ''; 
+                    let cautionsText = ''; // NEW
+
+                    sections.forEach(section => {
+                        // Use a more robust check for headings that might contain dynamic parts or emojis
+                        if (section.includes('Analysis & Potential Causes:')) { 
+                            analysisText = section.substring(section.indexOf('Causes:') + 'Causes:'.length).replace('---SECTION END---', '').trim();
+                        } else if (section.includes('**Your Personalized Skincare Routine:**')) {
+                            skincareRoutineText = section.replace('**Your Personalized Skincare Routine:**', '').replace('---SECTION END---', '').trim();
+                        } else if (section.includes('**Your Personalized Haircare Routine:**')) {
+                            haircareRoutineText = section.replace('**Your Personalized Haircare Routine:**', '').replace('---SECTION END---', '').trim();
+                        } else if (section.includes('**Highly Recommended Product Types & Key Ingredients:**')) { // NEW
+                            highlyRecommendedProductsText = section.replace('**Highly Recommended Product Types & Key Ingredients:**', '').replace('---SECTION END---', '').trim(); // NEW
+                        } else if (section.includes('**Foods to Eat for Healthy')) { // Catches both Skin and Hair versions
+                            foodsToEatText = section.substring(section.indexOf('Foods to Eat for Healthy') + 'Foods to Eat for Healthy'.length).replace(/Skin:|Hair:|Skin and Hair:/, '').replace('---SECTION END---', '').trim();
+                        } else if (section.includes('**Foods to Limit/Avoid for Healthy')) { // Catches both Skin and Hair versions
+                            foodsToAvoidText = section.substring(section.indexOf('Foods to Limit/Avoid for Healthy') + 'Foods to Limit/Avoid for Healthy'.length).replace(/Skin:|Hair:|Skin and Hair:/, '').replace('---SECTION END---', '').trim();
+                        } else if (section.includes('**General Diet Recommendations for Skin and Hair Health:**')) {
+                            generalDietText = section.replace('**General Diet Recommendations for Skin and Hair Health:**', '').replace('---SECTION END---', '').trim();
+                        } else if (section.includes('**Natural Remedies & DIY Solutions:**')) {
+                            naturalRemediesText = section.replace('**Natural Remedies & DIY Solutions:**', '').replace('---SECTION END---', '').trim();
+                        } else if (section.includes('**General Tips:**')) { 
+                            generalTipsText = section.replace('**General Tips:**', '').replace('---SECTION END---', '').trim();
+                        } else if (section.includes('**Important Cautions & Considerations:**')) { // NEW
+                            cautionsText = section.replace('**Important Cautions & Considerations:**', '').replace('---SECTION END---', '').trim(); // NEW
+                        }
+                    });
+
+                    // Display the analysis dynamically
+                    if (analysisText) {
+                         let analysisHeading = '';
+                         if (selectedServiceType === 'skincare') {
+                            analysisHeading = 'Your Skin Analysis & Potential Causes: 🔍';
+                            skinAnalysisSection.classList.remove('hidden');
+                            analysisContentDiv.innerHTML = formatGeneralText('**' + analysisHeading + '**\n' + analysisText);
+                            hairAnalysisSection.classList.add('hidden'); // Hide hair analysis section
+                        } else if (selectedServiceType === 'haircare') {
+                            analysisHeading = 'Your Hair Analysis & Potential Causes: 🔬';
+                            hairAnalysisSection.classList.remove('hidden');
+                            hairAnalysisContentDiv.innerHTML = formatGeneralText('**' + analysisHeading + '**\n' + analysisText);
+                            skinAnalysisSection.classList.add('hidden'); // Hide skin analysis section
+                        }
+                    }
+
+                    // Display the skincare routine
+                    if (skincareRoutineText && selectedServiceType === 'skincare') {
+                        skincareRecommendationsOutputContentDiv.innerHTML = formatRoutine(skincareRoutineText, 'skin');
+                        skincareRoutineSection.classList.remove('hidden');
+                    }
+
+                    // Display the haircare routine
+                    if (haircareRoutineText && selectedServiceType === 'haircare') {
+                        haircareRecommendationsOutputContentDiv.innerHTML = formatRoutine(haircareRoutineText, 'hair');
+                        haircareRoutineSection.classList.remove('hidden');
+                    }
+
+                    // Display Highly Recommended Product Types/Ingredients
+                    if (highlyRecommendedProductsText) { // NEW
+                        highlyRecommendedProductsContent.innerHTML = formatListItems(highlyRecommendedProductsText); // NEW
+                        highlyRecommendedProductsSection.classList.remove('hidden'); // NEW
+                    }
+
+                    // Update food section headings and display content
+                    if (foodsToEatText) {
+                        foodToEatHeading.textContent = `Foods to Eat for Healthy ${selectedServiceType === 'skincare' ? 'Skin' : 'Hair'}: �🥦🥑`;
+                        foodToEatContentDiv.innerHTML = formatListItems(foodsToEatText);
+                        foodToEatSection.classList.remove('hidden');
+                    }
+
+                    // Display food to avoid
+                    if (foodsToAvoidText) {
+                        foodToAvoidHeading.textContent = `Foods to Limit/Avoid for Healthy ${selectedServiceType === 'skincare' ? 'Skin' : 'Hair'}: 🚫🍔`;
+                        foodToAvoidContentDiv.innerHTML = formatListItems(foodsToAvoidText);
+                        foodToAvoidSection.classList.remove('hidden');
+                    }
+
+                    // Display general diet recommendations
+                    if (generalDietText) { 
+                        generalDietContentDiv.innerHTML = formatGeneralText(generalDietText);
+                        generalDietSection.classList.remove('hidden');
+                    }
+
+                    // Display natural remedies
+                    if (naturalRemediesText) {
+                        naturalRemediesContentDiv.innerHTML = formatListItems(naturalRemediesText);
+                        naturalRemediesSection.classList.remove('hidden');
+                    }
+
+                    // Display general tips
+                    if (generalTipsText) {
+                        tipsContentDiv.innerHTML = formatListItems(generalTipsText);
+                        generalTipsSection.classList.remove('hidden');
+                    }
+
+                    // Display cautions
+                    if (cautionsText) { // NEW
+                        cautionsContent.innerHTML = formatListItems(cautionsText); // NEW
+                        cautionsSection.classList.remove('hidden'); // NEW
+                    }
+
+                    // Show troubleshoot and feedback sections after main recommendations are loaded
+                    troubleshootSection.classList.remove('hidden');
+                    // feedbackSection.classList.remove('hidden'); // Removed
+
+
+                    loadingIndicator.classList.add('hidden'); // Hide loading after all content is ready
+
+                } else {
+                    showModal('No Recommendations', 'Could not retrieve recommendations. Please try again.😔');
+                    loadingIndicator.classList.add('hidden');
+                }
+            } catch (error) {
+                console.error("Error fetching AI recommendations:", error);
+                showModal('Error', `Failed to get recommendations. Please check your internet connection or try again later. Details: ${error.message} 😫`);
+                loadingIndicator.classList.add('hidden');
+            }
+        });
+
+        // NEW: Event listener for Troubleshooting button
+        submitTroubleshootBtn.addEventListener('click', async () => {
+            const userTrouble = troubleshootInput.value.trim();
+            if (!userTrouble) {
+                showModal('Input Required', 'Please describe the issue or question you have. 🤔');
+                return;
+            }
+
+            // Show loading for troubleshooting
+            troubleshootLoadingIndicator.classList.remove('hidden');
+            troubleshootOutputDiv.innerHTML = '';
+            troubleshootOutputDiv.classList.add('hidden'); // Hide until content is ready
+
+
+            let troubleshootingPrompt = `The user previously requested a personalized routine based on their details and was given recommendations.
+            Their original request details were:
+            - Service Type: ${selectedServiceType}
+            - Skin Type: ${currentUserSkinType}
+            - Main Skin Concerns: ${currentUserSkinConcerns.join(', ') || 'None selected'}
+            - Hair Type: ${currentUserHairType}
+            - Main Hair Concerns: ${currentUserHairConcerns.join(', ') || 'None selected'}
+            - Preferences: ${currentUserPreferences || 'None'}
+
+            Here are the detailed routine recommendations that were previously provided:
+            ---PREVIOUSLY RECOMMENDED SKINCARE ROUTINE---
+            ${currentSkincareRoutineRaw || 'No skincare routine was provided.'}
+            ---PREVIOUSLY RECOMMENDED HAIRCARE ROUTINE---
+            ${currentHaircareRoutineRaw || 'No haircare routine was provided.'}
+
+            The user is now experiencing an issue or has a follow-up question regarding their current routine or their skin/hair.
+            User's issue/question: "${userTrouble}"
+
+            As a professional skincare and/or haircare expert, please provide detailed, actionable advice to help the user resolve this. Suggest specific adjustments to their *existing* routine, alternative product types (general, not specific brands), or additional tips tailored to their problem. Focus on practical solutions.
+
+            ---TROUBLESHOOTING ADVICE START---
+            [Your detailed advice here, formatted in paragraphs and bullet points if necessary. Start directly with the advice, no additional greetings or intros.]
+            ---TROUBLESHOOTING ADVICE END---
+            `;
+
+            const chatParts = [{ role: "user", parts: [{ text: troubleshootingPrompt }] }];
+            const payload = { contents: chatParts };
+            // IMPORTANT: PASTE YOUR COPIED API KEY HERE!
+            // Example: const apiKey = "AIzaSyC..."; // Replace this with your actual key
+            const apiKey = "AIzaSyDRm0X-rHKtqUUnUj0T-pwOT9GgrXXGGLc"; 
+            let troubleshootApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`;
+            // Only append the API key if it's provided and not the default placeholder
+            if (apiKey && apiKey !== "YOUR_PASTED_API_KEY_HERE") {
+                troubleshootApiUrl += `?key=${apiKey}`;
+            } else if (!apiKey || apiKey === "YOUR_PASTED_API_KEY_HERE") {
+                // If the key is still the placeholder, show an error and stop.
+                showModal('API Key Missing', 'Please paste your actual Gemini API key into the JavaScript code. See comments in the script for instructions.');
+                troubleshootLoadingIndicator.classList.add('hidden');
+                return; // Stop execution
+            }
+
+            try {
+                const response = await fetch(troubleshootApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`API error: ${response.status} ${response.statusText} - ${errorData.error.message || 'Unknown error'}`);
+                }
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const fullText = result.candidates[0].content.parts[0].text;
+                    const troubleAdvice = fullText.includes('---TROUBLESHOOTING ADVICE START---') ?
+                                          fullText.split('---TROUBLESHOOTING ADVICE START---')[1].split('---TROUBLESHOOTING ADVICE END---')[0].trim() : fullText.trim();
+                    
+                    if (troubleAdvice) {
+                        troubleshootOutputDiv.innerHTML = formatGeneralText(troubleAdvice);
+                        troubleshootOutputDiv.classList.remove('hidden');
+                    } else {
+                        troubleshootOutputDiv.innerHTML = `<p class="text-gray-500">No specific advice received. Please try rephrasing your question.</p>`;
+                        troubleshootOutputDiv.classList.remove('hidden');
+                    }
+                    troubleshootLoadingIndicator.classList.add('hidden');
+
+                } else {
+                    showModal('No Advice', 'Could not retrieve troubleshooting advice. Please try again. 😔');
+                    troubleshootLoadingIndicator.classList.add('hidden');
+                }
+
+            } catch (error) {
+                console.error("Error fetching troubleshooting advice:", error);
+                showModal('Error', `Failed to get troubleshooting advice. Details: ${error.message} 😫`);
+                troubleshootLoadingIndicator.classList.add('hidden');
+            }
+        });
+
+        // Removed the submitFeedbackBtn event listener and related Firestore logic.
+        // submitFeedbackBtn.addEventListener('click', async () => { /* ... */ });
+
+
+        /**
+         * Formats general text from the AI, replacing bold markdown and creating paragraphs.
+         * @param {string} text - The raw text from the AI.
+         * @returns {string} - HTML formatted text.
+         */
+        function formatGeneralText(text) {
+            let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            return formattedText.split('\n').map(line => {
+                const trimmed = line.trim();
+                return trimmed ? `<p class="mb-2">${trimmed}</p>` : '';
+            }).join('');
+        }
+
+        /**
+         * Formats ordered/unordered list items from the AI for display.
+         * @param {string} text - The raw text from the AI containing list items.
+         * @returns {string} - HTML formatted text.
+         */
+        function formatListItems(text) {
+            let formattedHtml = '';
+            const lines = text.split('\n').filter(line => line.trim() !== '');
+            let inList = false;
+
+            lines.forEach(line => {
+                const trimmedLine = line.trim();
+                // Check if it looks like a list item (starts with *, -, or number followed by .)
+                const isListItem = trimmedLine.match(/^(\*|-|\d+\.)\s/);
+
+                if (isListItem) {
+                    if (!inList) {
+                        formattedHtml += `<ul class="list-inside ${trimmedLine.match(/^\d+\./) ? 'list-decimal' : 'list-disc'} pl-5">`; // Start list
+                        inList = true;
+                    }
+                    let content = trimmedLine.replace(/^(\*|-|\d+\.)\s/, '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    formattedHtml += `<li class="mb-2 text-gray-700">${content}</li>`;
+                } else {
+                    if (inList) {
+                        formattedHtml += `</ul>`; // End list if no longer list items
+                        inList = false;
+                    }
+                    if (trimmedLine.length > 0) { // Paragraphs
+                        let content = trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                        formattedHtml += `<p class="mb-2 text-gray-700">${content}</p>`;
+                    }
+                }
+            });
+
+            if (inList) { // Close list if still open at the end
+                formattedHtml += `</ul>`;
+            }
+            return formattedHtml;
+        }
+
+
+        /**
+         * Formats the AI's routine recommendations for display, including images.
+         * @param {string} text - The raw text from the AI containing the routine.
+         * @param {string} type - 'skin' or 'hair' to determine appropriate images.
+         * @returns {string} - HTML formatted text with placeholder images.
+         */
+        function formatRoutine(text, type) {
+            let formattedHtml = '';
+            const lines = text.split('\n').filter(line => line.trim() !== '');
+
+            const productImages = {
+                'skin': {
+                    'Cleanser': 'https://placehold.co/100x100/A78BFA/FFFFFF?text=CLEANSER%0A🧖‍♀️',
+                    'Toner': 'https://placehold.co/100x100/ADD8E6/FFFFFF?text=TONER%0A💧',
+                    'Serum': 'https://placehold.co/100x100/F472B6/FFFFFF?text=SERUM%0A✨',
+                    'Eye Cream': 'https://placehold.co/100x100/98FF98/FFFFFF?text=EYE+CREAM%0A👁️',
+                    'Moisturizer': 'https://placehold.co/100x100/60A5FA/FFFFFF?text=MOISTURIZER%0A💦',
+                    'Sunscreen': 'https://placehold.co/100x100/34D399/FFFFFF?text=SUNSCREEN%0A☀️',
+                    'Exfoliant': 'https://placehold.co/100x100/FFD700/FFFFFF?text=EXFOLIANT%0A scrub',
+                    'Mask': 'https://placehold.co/100x100/DAA520/FFFFFF?text=MASK%0A🎭',
+                    'Spot Treatment': 'https://placehold.co/100x100/FF6347/FFFFFF?text=SPOT%0A🎯'
+                },
+                'hair': {
+                    'Shampoo': 'https://placehold.co/100x100/6A0DAD/FFFFFF?text=SHAMPOO%0A🧼',
+                    'Conditioner': 'https://placehold.co/100x100/4B0082/FFFFFF?text=CONDITIONER%0A conditioner',
+                    'Leave-in Treatment/Serum': 'https://placehold.co/100x100/800080/FFFFFF?text=LEAVE-IN%0A✨',
+                    'Hair Mask': 'https://placehold.co/100x100/9370DB/FFFFFF?text=HAIR+MASK%0A🧖‍♀️',
+                    'Scalp Treatment': 'https://placehold.co/100x100/BA55D3/FFFFFF?text=SCALP%0A💆‍♀️'
+                }
+            };
+
+            let currentProductType = '';
+
+            lines.forEach(line => {
+                const trimmedLine = line.trim();
+
+                // Check for product type headings (e.g., "**Cleanser**:")
+                if (trimmedLine.match(/^\d+\.\s*\*\*(.*?)\*\*:/)) {
+                    const match = trimmedLine.match(/^\d+\.\s*\*\*(.*?)\*\*:?$/);
+                    if (match && match[1]) {
+                        currentProductType = match[1].trim();
+                        const imageUrl = (productImages[type] && productImages[type][currentProductType]) || 'https://placehold.co/100x100/E5E7EB/6B7280?text=PRODUCT';
+
+                        formattedHtml += `
+                            <div class="flex items-center space-x-4 mb-4 mt-6">
+                                <img src="${imageUrl}" alt="${currentProductType}" class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover shadow-md flex-shrink-0 border-2 border-pink-300">
+                                <h3 class="text-xl md:text-2xl font-semibold text-gray-800">${currentProductType}</h3>
+                            </div>
+                        `;
+                    }
+                } else if (trimmedLine.startsWith('**Costly/Premium**:') || trimmedLine.startsWith('**Budget-Friendly**:')) {
+                    formattedHtml += `<h4 class="text-lg font-medium text-pink-700 mt-4 mb-2">${trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</h4>`;
+                } else {
+                    let content = trimmedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    formattedHtml += `<p class="mb-2 text-gray-700">${content}</p>`;
+                }
+            });
+
+            return formattedHtml;
+        }
+
+        /**
+         * Displays a random beauty quote on the intro page.
+         */
+        function displayRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * beautyQuotes.length);
+            const selectedQuote = beautyQuotes[randomIndex];
+            quoteDisplay.innerHTML = `"${selectedQuote.quote}"<br><span class="text-sm font-semibold text-gray-500">- ${selectedQuote.author}</span>`;
+        }
+
+
+        // Initialize Firebase and then the app logic
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initializeFirebase(); // Initialize Firebase first
+            displayRandomQuote(); // Display a quote on load
+            showPage(introPage);
+            updateInputVisibility();
+        });
+    </script>
+</body>
+</html>
